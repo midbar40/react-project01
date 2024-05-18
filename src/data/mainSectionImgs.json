@@ -1,0 +1,32 @@
+[
+    {
+        "id" : 1,
+        "src" : "../assets/imgs/google.png",
+        "title" : "Google",
+        "alt" : "Google logo"
+    },
+    {
+        "id" : 2,
+        "src" : "../assets/imgs/insta.png",
+        "title" : "instagram",
+        "alt" : "instagram logo"
+    },
+    {
+        "id" : 3,
+        "src" : "../assets/imgs/kakao.png",
+        "title" : "kakao",
+        "alt" : "kakao logo"
+    },
+    {
+        "id" : 4,
+        "src" : "../assets/imgs/naver.png",
+        "title" : "naver",
+        "alt" : "naver logo"
+    }, 
+    {
+        "id" : 5,
+        "src" : "../assets/imgs/youtube.png",
+        "title" : "Youtube",
+        "alt" : "Youtube logo"
+    }
+]

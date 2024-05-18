@@ -5,7 +5,7 @@ import '../styles/Header.css';
 function Header() {
     return (
         <header>
-            <div>
+            <div className='mainHeader'>
                 <nav>
                     <div className='mainHeader_logo'>
                         <NavLink to="/" className="nav_link">

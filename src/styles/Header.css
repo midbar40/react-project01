@@ -1,4 +1,23 @@
+header{
+    border-bottom: 1px solid rgb(235, 235, 235)
+}
+
 header nav{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.mainHeader{
+    padding: 1rem 6rem;
+}
+
+.mainHeader_logo img{
+    width: 55px;
+    height: 55px;
+}
+
+.mainHeader_link{
+    display: flex;
+    gap: 50px;
 }

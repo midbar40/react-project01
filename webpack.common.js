@@ -5,7 +5,8 @@ const path = require("path");
 module.exports = {
   entry: "./src/index.tsx",
   resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
+    // TS2732: Cannot find module '../data/mainSectionImgs.json'. Consider using '--resolveJsonModule' to import module with '.json' extension.
+    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],  //  위 ts2732 오류로 .json 추가함 => 해결됨
   },
   module: {
     rules: [
