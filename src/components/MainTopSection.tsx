@@ -2,10 +2,18 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 import '../styles/MainTopSection.css';
 import brandLogoData from '../data/mainSectionImgs.json'; // tsconfig.json에서 "resolveJsonModule": true로 설정해야함
-import { mainBrandLogo } from '../types'
+import { mainBrandLogoData } from '../types'
 
-function MainTopSection(){
-    
+// 특정 디렉토리 내의 모든 이미지를 동적으로 import
+const requireContext = require.context('../assets/imgs', false, /\.(png|jpe?g|gif|svg)$/); // npm i @types/webpack-env, tsconfig types에 webpack-dev 추가  
+
+const images : { [key : string ] : string } = {};
+requireContext.keys().forEach((key: string) => {
+    images[key.replace('./', '')] = requireContext(key).default;
+});
+
+const MainTopSection : React.FC = () => {
+    const brandLogos: mainBrandLogoData[] = brandLogoData;
     return(
         <div className="main-section">
             <div className="main-section-first">
@@ -21,10 +29,10 @@ function MainTopSection(){
                 </div>
                 <div className="main-section-first-right">
                     <div>{/* map메서드 사용해야하는 곳? */}
-                        {brandLogoData.map((brandLogo: mainBrandLogo) => 
+                        {brandLogos.map((brandLogo: mainBrandLogoData) => 
                             <div key={brandLogo.id}>
                                 {/* webpack은 동적으로 이미지 경로를 가져오지 못한다 img src = require(경로).default  오류남*/}
-                                <img src={image[brandLogo.src]} alt={brandLogo.alt} /> 
+                                <img src={images[brandLogo.src]} alt={brandLogo.alt} /> 
                             </div>
                         )}
                     </div>

@@ -1,4 +1,4 @@
-export interface mainBrandLogo {
+export interface mainBrandLogoData {
     id: number;
     src: string;
     title: string;

@@ -2,7 +2,7 @@ import React from 'react'; // react를 import하지 않으면 typescript에서 h
 import { NavLink } from 'react-router-dom';
 import '../styles/Header.css';
 
-function Header() {
+const Header:React.FC = () => {
     return (
         <header>
             <div className='mainHeader'>

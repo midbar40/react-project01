@@ -18,7 +18,10 @@
         "@pages/*": ["pages/*"]
       },
       "allowSyntheticDefaultImports": true,
-      "forceConsistentCasingInFileNames": true
+      "forceConsistentCasingInFileNames": true,
+      "types" : [
+        "webpack-env",
+      ]
     },
     "include": ["src"]
   }
