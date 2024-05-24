@@ -1,15 +1,39 @@
-import React from 'react';
+import React, { useReducer } from "react";
 import '../styles/UserCheckForm.css';
 import { RequestBody } from '../types'
+ 
+// 상태의 타입 정의
+type State = {
+    name : string;
+    number : string;
+    keyword : string;
+};
+
+// 액션 타입 정의
+type Action = {
+    type: string;
+    value: string;
+};
+
+
+const reducer = (state: State, action: Action) : State => {
+    return { // reducer 함수는 객체를 반환
+        ...state,
+        [action.type]: action.value
+    };
+};
 
 const UserCheckForm: React.FC = () => {
+    const [state, dispatch] = useReducer(reducer, {
+        name: '',
+        number: '',
+        keyword: ''
+    });
+    const { name, number, keyword } = state;
+
     const searchCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-         
-        const name = (document.getElementById('name'))?.nodeValue ?? null;
-        const number = (document.getElementById('number'))?.nodeValue ?? null;
-        const keyword = (document.getElementById('keyword'))?.nodeValue ?? null;
-
+ 
         const requestBody: RequestBody = {
             name,
             number,
@@ -30,6 +54,10 @@ const UserCheckForm: React.FC = () => {
         };
         alert('검색중입니다');
     };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch({ type: e.target.name, value: e.target.value });
+    };
     return(
         <div className='checkScore'>
             <div className='userform'>
@@ -40,15 +68,15 @@ const UserCheckForm: React.FC = () => {
                     </div>
                     <div className='company-name'>
                         <label htmlFor="name">사업자명</label>
-                        <input type="text" id="name" name="name" />
+                        <input id="name" name="name" value={name} onChange={handleInputChange}/>
                     </div>
                     <div className='company-number'>
                         <label htmlFor="number">사업자번호</label>
-                        <input type="text" id="number" name="number" />
+                        <input id="number" name="number" value={number} onChange={handleInputChange}/>
                     </div>
                     <div className='company-keyword'>
                         <label htmlFor="keyword">주요키워드</label>
-                        <input type="text" id="keyword" name="keyword" />
+                        <input id="keyword" name="keyword" value={keyword} onChange={handleInputChange}/>
                     </div>
                     <div className='checkBtn'>
                         <button type="submit" onClick={searchCompany}>점수확인</button>
