@@ -1,6 +1,14 @@
+// data/mainSectionImgs.json
 export interface mainBrandLogoData {
     id: number;
     src: string;
     title: string;
     alt: string;
+    description: string;
+}
+// UserCheckForm.tsx
+export interface RequestBody {
+    name: string | null;
+    number: string | null;
+    keyword: string | null;
 }

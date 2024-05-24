@@ -1,32 +1,38 @@
 [
     {
         "id" : 1,
-        "src" : "google.png",
-        "title" : "Google",
-        "alt" : "Google logo"
-    },
+        "src" : "naver.png",
+        "title" : "naver",
+        "alt" : "naver logo",
+        "description" : "네이버SEO, 네이버애널리틱스, 네이버광고관리"
+    }, 
     {
         "id" : 2,
-        "src" : "instagram.png",
-        "title" : "instagram",
-        "alt" : "instagram logo"
+        "src" : "google.png",
+        "title" : "Google",
+        "alt" : "Google logo",
+        "description" : "구글SEO, 구글애널리틱스, 구글애드센스"
     },
+
     {
         "id" : 3,
         "src" : "kakao.png",
         "title" : "kakao",
-        "alt" : "kakao logo"
+        "alt" : "kakao logo",
+        "description" : "카카오SEO, 카카오 배너광고"
     },
     {
         "id" : 4,
-        "src" : "naver.png",
-        "title" : "naver",
-        "alt" : "naver logo"
-    }, 
+        "src" : "instagram.png",
+        "title" : "instagram",
+        "alt" : "instagram logo",
+        "description" : "인스타그램 마케팅, 인스타그램 광고, 인스타그램 팔로워"
+    },
     {
         "id" : 5,
         "src" : "youtube.png",
         "title" : "Youtube",
-        "alt" : "Youtube logo"
+        "alt" : "Youtube logo",
+        "description" : "유튜브 광고, 유튜브 채널 홍보"
     }
 ]
