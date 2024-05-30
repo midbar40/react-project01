@@ -46,8 +46,8 @@ const MainTopSection : React.FC = () => {
             </div>
             <div className="main-section-second">
                 <div className="main-section-second-link">
-                    <div className="main-section-second-left-btn"><NavLink to='/checkscore'className="nav_link">내 마케팅 점수 확인하기</NavLink></div>
-                    <div className="main-section-second-right-btn"><NavLink to='/consult'className="nav_link">상담하기</NavLink></div>
+                <NavLink to='/checkscore'className="nav_link"><div className="main-section-second-left-btn">내 마케팅 점수 확인하기</div></NavLink>
+                <NavLink to='/consult'className="nav_link"><div className="main-section-second-right-btn">상담하기</div></NavLink>
                 </div>
             </div>    
         </div>

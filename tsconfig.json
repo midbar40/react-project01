@@ -17,6 +17,7 @@
         "@components/*": ["components/*"],
         "@pages/*": ["pages/*"]
       },
+      "skipLibCheck": true,
       "allowSyntheticDefaultImports": true,
       "forceConsistentCasingInFileNames": true,
       "types" : [
