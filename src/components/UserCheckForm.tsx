@@ -38,24 +38,21 @@ const UserCheckForm: React.FC = () => {
       number,
       keyword,
     };
-
+    console.log(requestBody);
     // 서버로 데이터 전송하고 결과값 받아오기
     const fetchWebMarketingData = async () => {
-      const response = await fetch(
-        "http://127.0.0.1:5000/api/users/checkscore",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
+      const response = await fetch("http://127.0.0.1:5000/api/users/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
       const data = await response.json();
       console.log(data);
     };
     fetchWebMarketingData();
-    alert("검색중입니다");
+    console.log("검색중입니다");
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
