@@ -38,7 +38,6 @@ const UserCheckForm: React.FC = () => {
       number,
       keyword,
     };
-    console.log(requestBody);
     // 서버로 데이터 전송하고 결과값 받아오기
     const fetchWebMarketingData = async () => {
       const response = await fetch("http://127.0.0.1:5000/api/users/", {

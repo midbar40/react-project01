@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header, UserCheckForm } from '../components';
 
-const CheckScore : React.FC = () => {
+export const CheckScore : React.FC = () => {
     return(
         <div className="main">
             <Header />
