@@ -12,3 +12,13 @@ export interface RequestBody {
     number: string | null;
     keyword: string | null;
 }
+
+// SignUpForm.tsx
+export interface SignUpFormState {
+    email: string;
+    password: string;
+    passwordCheck: string;
+    company: string;
+    companyNumber: string;
+    contact: string;
+}

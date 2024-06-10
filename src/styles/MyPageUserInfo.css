@@ -1,0 +1,78 @@
+.myPage{
+    width: 100%;
+    height: calc(100vh - 6rem);
+    /* border: 1px solid #ccc; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.myPage h1{
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.member-info span:nth-child(1){
+    display: inline-block;
+    width: 120px;
+}
+.member-info span:nth-child(2){
+    display: inline-block;
+    width: 350px;
+    height: 30px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left: .8rem;
+}
+.marketing-info{
+    margin-top: 20px;
+}
+.marketing-info h3{
+    margin-bottom: 10px;
+}
+.interest{
+    margin-top: 20px;
+}
+.interest label{
+    font-size: 1.2rem;
+    display: inline-block;
+    width: 140px;
+    padding-left: 10px;
+}
+.interest input{
+    width: 17px;
+    height: 17px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left: .5rem;
+}
+#etc-label{
+    display: inline-block;
+    width: 60px;
+}
+#etc-content{
+    width: 25rem;
+    height: 30px;
+}
+.edit-btn{
+    background-color: #f9a109;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    width: 25%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

@@ -6,7 +6,7 @@
     align-items: center;
     background-color: #f9f9f9;
     width: 100%;
-    height: calc(100% - 6rem);
+    height: calc(100vh - 6rem);
 }
 .singup-form{
     display: flex;

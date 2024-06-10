@@ -5,3 +5,4 @@ export {default as ChartBar} from './ChartBar';
 export {default as UserCheckForm} from './UserCheckForm';
 export {default as SignUpForm} from './SignUpForm';
 export {default as LoginForm} from './LoginForm';
+export {default as MyPageUserInfo} from './MyPageUserInfo';
