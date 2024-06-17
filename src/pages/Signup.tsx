@@ -1,11 +1,12 @@
-import react from 'react';
-import { Header, SignUpForm } from '../components';
+import React, { useState } from 'react';
+import { Header, SignUpForm, SignUpFormDetail } from '../components';
 
 const Signup: React.FC = () => {
+    const [emailAuth, setEmailAuth] = useState<boolean>(false);
     return (
         <div className="main">
             <Header />
-            <SignUpForm />
+            {!emailAuth ? <SignUpForm setEmailAuth={setEmailAuth}/> : <SignUpFormDetail />}
         </div>
     )
 }

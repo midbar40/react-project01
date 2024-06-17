@@ -14,11 +14,9 @@ export interface RequestBody {
 }
 
 // SignUpForm.tsx
-export interface SignUpFormState {
+export interface SignUpFormDetailState {
     email: string;
-    password: string;
-    passwordCheck: string;
     company: string;
-    companyNumber: string;
+    name: string;
     contact: string;
 }

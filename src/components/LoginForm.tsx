@@ -7,11 +7,11 @@ const LoginForm: React.FC = () => {
         <div className="login">
                 <form className='login-form'>
                     <h1>로그인</h1>
-                    <div className="form-group">
+                    <div className="login-form-group">
                         <label htmlFor="email">이메일</label>
                         <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요" required/>
                     </div>
-                    <div className="form-group">
+                    <div className="login-form-group">
                         <label htmlFor="password">비밀번호</label>
                         <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요" required/>
                     </div>
