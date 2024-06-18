@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/SignUpFormDetail.css';
 import { SignUpFormDetailState } from '../types';
 
+interface SignUpFormDetailProps {
+    email : string;
+}
+
 // 상태의 타입 정의
 type State = {
-    email: string;
     company: string;
     name: string;
     contact: string;
@@ -25,40 +28,25 @@ const reducer = (state: State, action: Action): State => {
 };
 
 
-const SignUpFormDetail: React.FC = () => {
+const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
+    console.log('email prop :', email)
     const [emptyCheck, setEmptyCheck] = useState<boolean>(false);
     const [errorText, setErrorText] = useState<string>(''); 
     let navigate = useNavigate();
     const [state, dispatch] = useReducer(reducer, {
-        email: '',
         company: '',
         name: '',
         contact: ''
     });
-    const { email, company, name, contact } = state;
+    const { company, name, contact } = state;
     
     // 입력값이 있는지 확인
     const checkInputEmpty = () => { 
         return email === '' || company === '' || name === '' || contact === ''; 
     }
-    // 이메일 유효성 검사
-    const checkEmailIsValid = () => {
-        const emailRegexp = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-        return emailRegexp.test(email);
-    }
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         dispatch({ type: name, value });
-        // 이메일 유효성 검사
-        if(name === 'email'){
-            if(!checkEmailIsValid()){
-                setErrorText('이메일 형식이 올바르지 않습니다');
-            } else {
-                setErrorText('');
-            }
-        }
-
         // 입력값이 있는지 확인
          if(checkInputEmpty()) {
             setEmptyCheck(true);
@@ -84,10 +72,7 @@ const SignUpFormDetail: React.FC = () => {
             setErrorText('빈 칸을 모두 입력해주세요');
             return;
         }        
-        if(!checkEmailIsValid()){
-            setErrorText('이메일 형식이 올바르지 않습니다');
-            return;
-        }     
+     
         setErrorText('');
 
 
@@ -124,7 +109,7 @@ const SignUpFormDetail: React.FC = () => {
                     <h1>Welcome to Customer-Finder</h1>
                     <div className="form-group">
                         <label htmlFor="email">이메일</label>
-                        <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요" onChange={handleInputChange} required />
+                        <input type="email" id="email" name="email" value={email ?? '이메일을 입력해주세요'} onChange={handleInputChange} required />
                     </div>                
                     <div className="form-group">
                         <label htmlFor="company">회사명</label>
