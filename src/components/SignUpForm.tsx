@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import '../styles/SignUpForm.css';
 
 // prop 타입 정의
@@ -36,19 +37,22 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ emailAuth, setEmailAuth, email,
     
     return (
         <>
-            <div className="singup">
-                <form className='singup-form'>
+            <div className="signup">
+                <form className='signup-form'>
                     <h1>Welcome to Customer-Finder</h1>
                     <div className="form-group">
                         {!checkEmail ?
                             (
                                 <>
                                     <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요" onChange={handleInputChange} required />
-                                    <button type="submit" className='singup-btn' onClick={registerUsers}>회원가입</button>
+                                    <button type="submit" className='signup-btn' onClick={registerUsers}>회원가입</button>
                                 </>
                             )
                             : (<p className='check-email'>이메일을 통해 인증을 진행해주세요</p>)}
                     </div>
+                    <div className="other-btns">
+                    <NavLink to='/login'><button>이미 가입하셨나요?</button></NavLink>
+                </div>
                 </form>
             </div>
         </>

@@ -1,10 +1,10 @@
 
-.form-group label{
+.form-group-detail label{
     display: inline-block;
     width: 80px;
     font-size: 1.3rem;
 }
-.form-group input{
+.form-group-detail input{
     width: 300px;
     height: 50px;
     margin-bottom: 10px;
@@ -12,7 +12,7 @@
     border-radius: 5px;
     padding-left: .8rem;
 }
-.singup-btn{
+.sign-btn{
     background-color: #f9a109;
     color: white;
     border: none;

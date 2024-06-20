@@ -50,11 +50,9 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
         // 입력값이 있는지 확인
          if(checkInputEmpty()) {
             setEmptyCheck(true);
-            setErrorText('빈 칸을 모두 입력해주세요');
             return;
         } else {
             setEmptyCheck(false);
-            setErrorText('');
         }
     }
 
@@ -105,22 +103,22 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
     }
     return (
         <>
-            <div className="singup">
-                <form className='singup-form'>
+            <div className="signup">
+                <form className='signup-formDetail'>
                     <h1>Welcome to Customer-Finder</h1>
-                    <div className="form-group">
+                    <div className="form-group-detail">
                         <label htmlFor="email">이메일</label>
                         <input type="email" id="email" name="email" value={email ?? '이메일을 입력해주세요'} onChange={handleInputChange} required disabled/>
                     </div>                
-                    <div className="form-group">
+                    <div className="form-group-detail">
                         <label htmlFor="company">회사명</label>
                         <input type="text" id="company" name="company" placeholder="회사명을 입력해주세요" onChange={handleInputChange} required />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-detail">
                         <label htmlFor="name">이름</label>
                         <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" onChange={handleInputChange} required />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-detail">
                         <label htmlFor="contact">연락처</label>
                         <input type="tel"
                             id="contact"
@@ -133,7 +131,7 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
                             required />
                     </div>
                     {emptyCheck && <p className='empty-check' style={{color : 'red', textAlign:'right', marginBottom :'10px'}}>{errorText}</p>}
-                    <button type="submit" className='singup-btn' onClick={registerUsers}>회원가입</button>
+                    <button type="submit" className='signup-btn' onClick={registerUsers}>회원가입</button>
                 </form>
             </div>
         </>

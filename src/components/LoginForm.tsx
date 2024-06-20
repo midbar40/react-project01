@@ -14,7 +14,7 @@ const LoginForm: React.FC<LoginFormProps> = ({loginAuth, setLoginAuth}) => {
         console.log(e.target.value);
         setEmail(e.target.value);
     }
-    
+
     const handleSendAuthEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
         try {
             const response = await fetch('http://localhost:5000/api/users/login', {
@@ -39,7 +39,7 @@ const LoginForm: React.FC<LoginFormProps> = ({loginAuth, setLoginAuth}) => {
                         <button type="submit" className='login-btn' onClick={handleSendAuthEmail}>로그인</button>
                     </div>
                 <div className="other-btns">
-                    <NavLink to='/signup'><button>회원가입</button></NavLink>
+                    <NavLink to='/signup'><button>아직 회원이 아니신가요?</button></NavLink>
                 </div>
                 </form>
             </div>
