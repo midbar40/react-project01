@@ -52,3 +52,8 @@
     cursor: pointer;
     border-radius: 5px;
 }
+.check-email{
+    background-color: #f9a109;
+    color: white;
+    font-size: 1.5rem;
+}

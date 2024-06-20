@@ -50,6 +50,7 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
         // 입력값이 있는지 확인
          if(checkInputEmpty()) {
             setEmptyCheck(true);
+            setErrorText('빈 칸을 모두 입력해주세요');
             return;
         } else {
             setEmptyCheck(false);
@@ -109,7 +110,7 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
                     <h1>Welcome to Customer-Finder</h1>
                     <div className="form-group">
                         <label htmlFor="email">이메일</label>
-                        <input type="email" id="email" name="email" value={email ?? '이메일을 입력해주세요'} onChange={handleInputChange} required />
+                        <input type="email" id="email" name="email" value={email ?? '이메일을 입력해주세요'} onChange={handleInputChange} required disabled/>
                     </div>                
                     <div className="form-group">
                         <label htmlFor="company">회사명</label>

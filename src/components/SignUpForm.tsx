@@ -6,9 +6,10 @@ interface SignUpFormProps {
     setEmailAuth: React.Dispatch<React.SetStateAction<boolean>>;
     email: string;
     setEmail: React.Dispatch<React.SetStateAction<string>>;
+    emailAuth : boolean;
 }
 
-const SignUpForm: React.FC<SignUpFormProps> = ({ setEmailAuth, email, setEmail }) => {
+const SignUpForm: React.FC<SignUpFormProps> = ({ emailAuth, setEmailAuth, email, setEmail}) => {
     const [checkEmail, setCheckEmail] = useState<boolean>(false); // 이메일 체크용
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
@@ -28,9 +29,11 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ setEmailAuth, email, setEmail }
         if (data.message === 'success') {
             window.localStorage.setItem('email', email);
             setCheckEmail(true);
-            
-        }
+            setEmail(email);
+        }  
+         
     }
+    
     return (
         <>
             <div className="singup">
@@ -44,7 +47,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ setEmailAuth, email, setEmail }
                                     <button type="submit" className='singup-btn' onClick={registerUsers}>회원가입</button>
                                 </>
                             )
-                            : (<p>이메일을 통해 인증을 진행해주세요</p>)}
+                            : (<p className='check-email'>이메일을 통해 인증을 진행해주세요</p>)}
                     </div>
                 </form>
             </div>

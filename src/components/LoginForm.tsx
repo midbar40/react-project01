@@ -1,25 +1,45 @@
-import react from 'react';
+import React, {useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import '../styles/LoginForm.css';
 
-const LoginForm: React.FC = () => {
+interface LoginFormProps {
+    loginAuth: boolean;
+    setLoginAuth: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({loginAuth, setLoginAuth}) => {
+    const [email, setEmail] = useState<string>('');
+
+    const handleEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.value);
+        setEmail(e.target.value);
+    }
+    
+    const handleSendAuthEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        try {
+            const response = await fetch('http://localhost:5000/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body : JSON.stringify({email})
+            })
+            const result = await response.json();
+            console.log('로그인 결과:', result);
+        } catch (error) {
+            console.log("로그인 에러 :",error)
+        }
+    }
     return (
         <div className="login">
                 <form className='login-form'>
-                    <h1>로그인</h1>
+                    <h1>로그인하세요</h1>
                     <div className="login-form-group">
-                        <label htmlFor="email">이메일</label>
-                        <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요" required/>
+                        <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요" onChange={handleEmailInputChange} required/>
+                        <button type="submit" className='login-btn' onClick={handleSendAuthEmail}>로그인</button>
                     </div>
-                    <div className="login-form-group">
-                        <label htmlFor="password">비밀번호</label>
-                        <input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요" required/>
-                    </div>
-                    <button type="submit" className='login-btn'>로그인</button>
                 <div className="other-btns">
                     <NavLink to='/signup'><button>회원가입</button></NavLink>
-                    <button>아이디찾기</button>
-                    <button>비밀번호찾기</button>
                 </div>
                 </form>
             </div>
