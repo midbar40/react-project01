@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import '../styles/Header.css';
 
 const Header:React.FC = () => {
+    const cookie = document.cookie;
+    console.log('cookie :', cookie)
     return (
         <header>
             <div className='mainHeader'>

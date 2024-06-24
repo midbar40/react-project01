@@ -61,3 +61,8 @@
 .other-btns button:hover{
     text-decoration: underline;
 }
+.check-email{
+    background-color: #f9a109;
+    color: white;
+    font-size: 1.5rem;
+}

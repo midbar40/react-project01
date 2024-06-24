@@ -51,7 +51,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ emailAuth, setEmailAuth, email,
                             : (<p className='check-email'>이메일을 통해 인증을 진행해주세요</p>)}
                     </div>
                     <div className="other-btns">
-                    <NavLink to='/login'><button>이미 가입하셨나요?</button></NavLink>
+                    <span>이미 가입하셨나요?</span><NavLink to='/login'><button>로그인</button></NavLink>
                 </div>
                 </form>
             </div>
