@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useNavigate } from 'react-router-dom';
 import '../styles/SignUpForm.css';
 
 // prop 타입 정의
@@ -12,6 +12,7 @@ interface SignUpFormProps {
 
 const SignUpForm: React.FC<SignUpFormProps> = ({ emailAuth, setEmailAuth, email, setEmail}) => {
     const [checkEmail, setCheckEmail] = useState<boolean>(false); // 이메일 체크용
+    let navigate = useNavigate();
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     }
@@ -31,7 +32,10 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ emailAuth, setEmailAuth, email,
             window.localStorage.setItem('email', email);
             setCheckEmail(true);
             setEmail(email);
-        }  
+        } else if (data.message === 'aleadyExist') {
+            alert('이미 가입된 이메일입니다, 로그인 화면으로 이동합니다');
+            navigate('/login');
+        }
          
     }
     

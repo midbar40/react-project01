@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import '../styles/LoginForm.css';
+// import {useAuthStore} from '../stores/AuthStore';
+// import Cookies from 'js-cookie';
 
 interface LoginFormProps {
     loginAuth: boolean;
@@ -10,7 +12,8 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({loginAuth, setLoginAuth}) => {
     const [email, setEmail] = useState<string>('');
     const [sendEmail, setSendEmail] = useState<boolean>(false);
-   
+    // const setCookies = useAuthStore(state => state.setCookies);
+
     const handleEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
         console.log(e.target.value);
         setEmail(e.target.value);
@@ -29,6 +32,11 @@ const LoginForm: React.FC<LoginFormProps> = ({loginAuth, setLoginAuth}) => {
             const result = await response.json();
             if(result.message === 'success') {
                 setSendEmail(true);
+                // let cookieData = Cookies.get('midbar_token');
+                // console.log('쿠키 데이터 :', cookieData)
+                // if(cookieData) {
+                //     setCookies(cookieData);
+                // }
             } else {
                 console.log('로그인 실패 :', result.message);
             }
