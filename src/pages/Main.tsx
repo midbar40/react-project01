@@ -1,12 +1,9 @@
 import React from 'react';
-import {Header, MainTopSection} from '../components';
+import { MainTopSection } from '../components';
 
-function Main(){
-    return(
-        <div className='main'>
-            <Header />
-            <MainTopSection />
-        </div>
+const Main: React.FC = () => {
+    return (
+        <MainTopSection />
     )
 }
 export default Main;

@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  <React.StrictMode>    { /* React.StrictMode를 사용하면 Header가 2번 랜더링 된다 */}
     <BrowserRouter>
       <App />
     </BrowserRouter>

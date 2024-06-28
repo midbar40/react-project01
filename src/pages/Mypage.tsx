@@ -1,12 +1,9 @@
 import react from 'react';
-import { Header, MyPageUserInfo } from '../components';
+import {  MyPageUserInfo } from '../components';
 
 const Mypage: React.FC = () => {
     return (
-        <>
-            <Header />
             <MyPageUserInfo />
-        </>
     )
 }
 

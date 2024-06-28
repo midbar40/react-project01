@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Header, SignUpForm, SignUpFormDetail } from '../components';
+import {  SignUpForm, SignUpFormDetail } from '../components';
 
 
 const Signup: React.FC = () => {
@@ -20,10 +20,9 @@ const Signup: React.FC = () => {
     }, []);
 
     return (
-        <div className="main">
-            <Header />
+        <>
             {!emailAuth ? <SignUpForm setEmailAuth={setEmailAuth} email={email} setEmail={setEmail} emailAuth={emailAuth} /> : <SignUpFormDetail email={email} />}
-        </div>
+        </>
     );
 };
 

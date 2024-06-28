@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import { Header, LoginForm } from '../components';
-import { NavLink,useNavigate } from 'react-router-dom';
+import { LoginForm } from '../components';
+import { useNavigate } from 'react-router-dom';
+import {useAuthStore} from '../stores/AuthStore';
+import Cookies from 'js-cookie';
 
 const Login: React.FC = () => {
     const [loginAuth, setLoginAuth] = useState<boolean>(false);
+    const setCookies = useAuthStore(state => state.setCookies);
     let navigate = useNavigate();
-
     useEffect(() => {
         if (loginAuth) {
             window.localStorage.removeItem('email')
@@ -14,11 +16,21 @@ const Login: React.FC = () => {
     }, [loginAuth, navigate]);
 
     useEffect(() => {
-        const eventSource = new EventSource('http://localhost:5000/api/users/events');
+        const eventSource = new EventSource('http://localhost:5000/api/users/events', 
+        {
+            withCredentials: true
+        }
+        );
         eventSource.onmessage = (event) => {
             const data = JSON.parse(event.data);
+            console.log('로그인 이벤트 :', data);
             if (data.message === 'user_verified') {
-                setLoginAuth(true);
+                if(data.cookieToken !== undefined) {
+                    let token = Cookies.set('isLoggined', 'accepted', {expires: 1});
+                    setLoginAuth(true);
+                    setCookies(token as string);
+                    console.log('Login쿠키 :', token)
+                }
                 eventSource.close();
             }
         };
@@ -27,10 +39,7 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <div className="main">
-                <Header />
                 <LoginForm loginAuth={loginAuth} setLoginAuth={setLoginAuth}/>
-            </div>
         </>
     )
 }
