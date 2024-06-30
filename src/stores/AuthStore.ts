@@ -8,6 +8,6 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>()((set) => ({
     cookies: '',
-    setCookies: (newCookie: string) => set({ cookies: newCookie }),
+    setCookies: (cookies: string) => set({ cookies }),
     clearCookies: () => set({ cookies: '' })
 }))

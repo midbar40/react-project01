@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import {  SignUpForm, SignUpFormDetail } from '../components';
+import { SignUpForm, SignUpFormDetail } from '../components';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../stores/AuthStore';
+import Cookies from 'js-cookie';
 
 
 const Signup: React.FC = () => {
     const [emailAuth, setEmailAuth] = useState<boolean>(false);
     const [email, setEmail] = useState<string>('');
+    const setCookies = useAuthStore(state => state.setCookies);
+    let navigate = useNavigate();
 
     useEffect(() => {
         const eventSource = new EventSource('http://localhost:5000/api/users/events');
         eventSource.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            if (data.message === 'verified') {
-                setEmailAuth(true);
-                eventSource.close();
+            switch (data.message) {
+                case 'verified':
+                    setEmailAuth(true);
+                    break;
+                case 'user_verified':
+                    let token = Cookies.set('isLoggined', 'accepted', { expires: 1 });
+                    setCookies(token as string);
+                    navigate('/');
+                    eventSource.close();
+                    break;
             }
         };
 

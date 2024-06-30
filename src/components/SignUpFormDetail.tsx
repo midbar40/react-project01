@@ -4,7 +4,7 @@ import '../styles/SignUpFormDetail.css';
 import { SignUpFormDetailState } from '../types';
 
 interface SignUpFormDetailProps {
-    email : string;
+    email: string;
 }
 
 // 상태의 타입 정의
@@ -28,10 +28,10 @@ const reducer = (state: State, action: Action): State => {
 };
 
 
-const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
+const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({ email }) => {
     console.log('email prop :', email)
     const [emptyCheck, setEmptyCheck] = useState<boolean>(false);
-    const [errorText, setErrorText] = useState<string>(''); 
+    const [errorText, setErrorText] = useState<string>('');
     let navigate = useNavigate();
     const [state, dispatch] = useReducer(reducer, {
         company: '',
@@ -39,16 +39,16 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
         contact: ''
     });
     const { company, name, contact } = state;
-    
+
     // 입력값이 있는지 확인
-    const checkInputEmpty = () => { 
-        return email === '' || company === '' || name === '' || contact === ''; 
+    const checkInputEmpty = () => {
+        return email === '' || company === '' || name === '' || contact === '';
     }
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         dispatch({ type: name, value });
         // 입력값이 있는지 확인
-         if(checkInputEmpty()) {
+        if (checkInputEmpty()) {
             setEmptyCheck(true);
             return;
         } else {
@@ -56,7 +56,7 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
         }
     }
 
-    const registerUsers = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const registUserAndLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
         // 서버로 유저 정보 전송
         // 가입 완료 후 로그인 페이지로 이동
         e.preventDefault();
@@ -66,14 +66,13 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
             name,
             contact
         };
-        if(checkInputEmpty()) {
+        if (checkInputEmpty()) {
             setEmptyCheck(true);
             setErrorText('빈 칸을 모두 입력해주세요');
             return;
-        }        
-     
-        setErrorText('');
+        }
 
+        setErrorText('');
 
         try {
             const response = await fetch("http://127.0.0.1:5000/api/users/signup", {
@@ -88,11 +87,10 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
                 const data = await response.json();
                 if (data.message === 'success') {
                     alert('회원가입이 완료되었습니다');
-                    navigate('/login');
                 }
             } else {
                 const data = await response.json();
-                if(data.message === 'alreadyExist'){
+                if (data.message === 'alreadyExist') {
                     setEmptyCheck(false);
                     setErrorText('이미 존재하는 이메일입니다');
                 }
@@ -108,8 +106,8 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
                     <h1>Welcome to Customer-Finder</h1>
                     <div className="form-group-detail">
                         <label htmlFor="email">이메일</label>
-                        <input type="email" id="email" name="email" value={email ?? '이메일을 입력해주세요'} onChange={handleInputChange} required disabled/>
-                    </div>                
+                        <input type="email" id="email" name="email" value={email ?? '이메일을 입력해주세요'} onChange={handleInputChange} required disabled />
+                    </div>
                     <div className="form-group-detail">
                         <label htmlFor="company">회사명</label>
                         <input type="text" id="company" name="company" placeholder="회사명을 입력해주세요" onChange={handleInputChange} required />
@@ -130,8 +128,8 @@ const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({email}) => {
                             onChange={handleInputChange}
                             required />
                     </div>
-                    {emptyCheck && <p className='empty-check' style={{color : 'red', textAlign:'right', marginBottom :'10px'}}>{errorText}</p>}
-                    <button type="submit" className='signup-btn' onClick={registerUsers}>회원가입</button>
+                    {emptyCheck && <p className='empty-check' style={{ color: 'red', textAlign: 'right', marginBottom: '10px' }}>{errorText}</p>}
+                    <button type="submit" className='signup-btn' onClick={registUserAndLogin}>회원가입</button>
                 </form>
             </div>
         </>

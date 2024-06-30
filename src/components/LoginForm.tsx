@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import '../styles/LoginForm.css';
 
 interface LoginFormProps {
@@ -10,6 +10,7 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({loginAuth, setLoginAuth}) => {
     const [email, setEmail] = useState<string>('');
     const [sendEmail, setSendEmail] = useState<boolean>(false);
+    let navigate = useNavigate();
 
     const handleEmailInputChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
         console.log(e.target.value);
@@ -30,7 +31,11 @@ const LoginForm: React.FC<LoginFormProps> = ({loginAuth, setLoginAuth}) => {
             const result = await response.json();
             if(result.message === 'success') {
                 setSendEmail(true);
-            } else {
+            } else if (result.message === 'notExist') {
+                alert('가입되지 않은 이메일입니다, 회원가입 화면으로 이동합니다');
+                navigate('/signup')
+            }
+            else {
                 console.log('로그인 실패 :', result.message);
             }
             console.log('로그인 결과:', result);
