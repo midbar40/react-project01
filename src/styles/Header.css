@@ -25,3 +25,6 @@ header nav{
     text-decoration: underline;
     cursor: pointer;
 }
+.nav_link.logoutBtn, .nav_link.loginBtn{
+    font-weight: 600;
+}
