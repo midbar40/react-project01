@@ -1,30 +1,42 @@
 import react, { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query'
 import '../styles/MyPageUserInfo.css';
 
+const fetchUserInfo = async () => {
+    // DB에서 유저 정보를 가져오는 함수
+    const response = await fetch("http://localhost:5000/api/users/info", {
+        method :"GET",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+    const data = await response.json();
+    return data.data;
+}
+
 const MyPageUserInfo: React.FC = () => {
-    useEffect(() => {
-        fetchUserInfo();
-    },[])
-    const fetchUserInfo = async () => {
-        // DB에서 유저 정보를 가져오는 함수
-        const response = await fetch("http://localhost:5000/api/users/info", {
-            method :"GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-        const data = await response.json();
-        console.log(data.data);
-    }
+
+// react-query를 사용하여 useInfo를 캐쉬에 저장해서 불러온다
+    const { data, error, isLoading } = useQuery({
+    queryKey : ['userInfo'],
+    queryFn : fetchUserInfo,
+    gcTime: 10 * 60 * 1000, // 10분
+    staleTime: 5 * 60 * 1000, // 5분
+});
+// 캐쉬데이터가 로딩중이거나 에러가 발생하면 로딩중이라는 문구를 띄운다
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
+
+    console.log('캐쉬데이터 :', data)
     return (
         <div className="main">
             <div className="myPage">
                 <h1>마이페이지</h1>
                 <div className="member-info">
-                    <div><span>아이디(이메일)</span><span>tesla@naver.com</span></div>
-                    <div><span>회사명</span><span>고객회사</span></div>
-                    <div><span>가입자</span><span>엘론머스크</span></div>
-                    <div><span>연락처</span><span>010-0000-0000</span></div>
+                    <div><span>아이디(이메일)</span><span>{data.email}</span></div>
+                    <div><span>회사명</span><span>{data.company}</span></div>
+                    <div><span>가입자</span><span>{data.name}</span></div>
+                    <div><span>연락처</span><span>{data.contact}</span></div>
                     {/* <div><span>주요키워드</span><span>'내가등록한키워드'</span></div> */}
                 </div>
                 <div className="marketing-info">

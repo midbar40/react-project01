@@ -1,19 +1,39 @@
 import React from 'react'; // react를 import하지 않으면 typescript에서 html을 인식하지 못함
 import { NavLink, useNavigate } from 'react-router-dom';
-import '../styles/Header.css';
 import { useAuthStore } from '../stores/AuthStore';
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import '../styles/Header.css';
 import Cookies from 'js-cookie';
 
-const Header: React.FC = () => {
-    const { cookies, clearCookies } = useAuthStore();
-    console.log('Header 쿠키 상태 :', cookies)
-    console.log('쿠키읽기', document.cookie)
-    const logout = () => {
-        clearCookies();
-        Cookies.remove('isLoggined');
-        Cookies.remove('midbar_token');
-    }
 
+// 서버에 로그아웃 요청
+const fetchLogout = async (): Promise<void> => {
+    const response = await fetch("http://localhost:5000/api/users/logout")
+    const result = await response.json();
+    console.log('로그아웃 결과 :', result.message)
+}
+
+const Header: React.FC = () => {
+    let navigate = useNavigate();
+    const queryClient = useQueryClient();
+    const { cookies, clearCookies } = useAuthStore();
+    const { mutate } = useMutation({
+        mutationFn: fetchLogout,
+        onSuccess: () => {
+            clearCookies();
+            Cookies.remove('isLoggined');
+            Cookies.remove('midbar_token'); // 이 쿠키는 왜 안지워지지
+            queryClient.invalidateQueries({ // 캐시가 안지워지고 있음
+                queryKey: ["userInfo"],
+            });
+            const data = queryClient.getQueryData(["userInfo"])
+            console.log('로그아웃 후 캐쉬데이터 :', data)
+        }
+    })
+
+    const logout = () => {
+        mutate();
+    }
     return (
         <header>
             <div className='mainHeader'>

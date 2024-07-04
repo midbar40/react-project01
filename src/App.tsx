@@ -8,7 +8,7 @@ import {CheckScore, Login, Mypage, Signup} from "./pages/index";
 const App : React.FC = () => {
   return (
     <div className='main'>
-      <Header />
+      <Header /> 
       <Routes>
         <Route path='/' element={<Main />} />      
         <Route path='/checkscore' element={<CheckScore />} />      
