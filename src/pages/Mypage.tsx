@@ -7,9 +7,7 @@ const Mypage: React.FC = () => {
 
     const checkCookieIsExist = () => {
         const { cookies } = useAuthStore();
-        if (
-            !cookies || cookies === '' || cookies === undefined || cookies === null 
-        ) {
+        if (!cookies || cookies === '' || cookies === undefined || cookies === null) {
             alert('로그인이 필요한 서비스입니다.');
             window.location.href = '/login';
             return false;
@@ -17,11 +15,8 @@ const Mypage: React.FC = () => {
             return true;
         }
     }
-
     return (
-        <>
-            {checkCookieIsExist() && <MyPageUserInfo />}
-        </>
+        <>{checkCookieIsExist() && <MyPageUserInfo />}</>
     )
 }
 

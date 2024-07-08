@@ -5,7 +5,6 @@ import { RequestBody } from "../types";
 // 상태의 타입 정의
 type State = {
   name: string;
-  number: string;
   keyword: string;
 };
 
@@ -26,29 +25,38 @@ const reducer = (state: State, action: Action): State => {
 const UserCheckForm: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, {
     name: "",
-    number: "",
     keyword: "",
   });
-  const { name, number, keyword } = state;
+  const { name, keyword } = state;
 
   const searchCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const requestBody: RequestBody = {
       name,
-      number,
       keyword,
     };
     // 서버로 데이터 전송하고 결과값 받아오기
     const fetchWebMarketingData = async () => {
-      const response = await fetch("http://127.0.0.1:5000/api/users/", {
+      const googleResponse = await fetch("http://localhost:5000/api/websearch/google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
       });
-      const data = await response.json();
-      console.log(data);
+
+      const naverResponse = await fetch("http://localhost:5000/api/websearch/naver", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      Promise.all([naverResponse])
+      .then(res => Promise.all(res.map(res=>res.json())))
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
     };
     fetchWebMarketingData();
     console.log("검색중입니다");
@@ -72,15 +80,6 @@ const UserCheckForm: React.FC = () => {
               id="name"
               name="name"
               value={name}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="company-number">
-            <label htmlFor="number">사업자번호</label>
-            <input
-              id="number"
-              name="number"
-              value={number}
               onChange={handleInputChange}
             />
           </div>

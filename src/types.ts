@@ -9,7 +9,6 @@ export interface mainBrandLogoData {
 // UserCheckForm.tsx
 export interface RequestBody {
     name: string | null;
-    number: string | null;
     keyword: string | null;
 }
 
