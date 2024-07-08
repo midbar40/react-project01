@@ -6,9 +6,8 @@ const fetchUserInfo = async () => {
     // DB에서 유저 정보를 가져오는 함수
     const response = await fetch("http://localhost:5000/api/users/info", {
         method :"GET",
-        headers: {
-            "Content-Type": "application/json",
-        }
+         headers: { "Content-type" : "application/json" },
+         credentials : "include"
     })
     const data = await response.json();
     return data.data;

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { SignUpForm, SignUpFormDetail } from '../components';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/AuthStore';
-import Cookies from 'js-cookie';
 
 
 const Signup: React.FC = () => {
@@ -20,8 +19,7 @@ const Signup: React.FC = () => {
                     setEmailAuth(true);
                     break;
                 case 'user_verified':
-                    let token = Cookies.set('isLoggined', 'accepted', { expires: 1 });
-                    setCookies(token as string);
+                    setCookies('userVerified');
                     navigate('/');
                     eventSource.close();
                     break;

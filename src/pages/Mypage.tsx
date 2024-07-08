@@ -1,14 +1,15 @@
 import react from 'react';
 import { MyPageUserInfo } from '../components';
-import Cookies from 'js-cookie';
+import { useAuthStore } from '../stores/AuthStore';
 
 
 const Mypage: React.FC = () => {
 
     const checkCookieIsExist = () => {
-        let cookie = Cookies.get('isLoggined');
-
-        if (cookie === undefined || cookie === null || cookie === '') {
+        const { cookies } = useAuthStore();
+        if (
+            !cookies || cookies === '' || cookies === undefined || cookies === null 
+        ) {
             alert('로그인이 필요한 서비스입니다.');
             window.location.href = '/login';
             return false;
