@@ -1,6 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import "../styles/UserCheckForm.css";
 import { RequestBody } from "../types";
+import {Loading} from '../components/index'
 
 // 상태의 타입 정의
 type State = {
@@ -22,21 +23,36 @@ const reducer = (state: State, action: Action): State => {
   };
 };
 
-const UserCheckForm: React.FC = () => {
+interface searchResult {
+  title: string;
+  link : string;
+}
+
+interface UserCheckFormProp {
+  setIsData : React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const UserCheckForm: React.FC<UserCheckFormProp> = ({setIsData}) => {
+  const [loading, setLoading] = useState(false);
   const [state, dispatch] = useReducer(reducer, {
     name: "",
     keyword: "",
   });
   const { name, keyword } = state;
 
-  const searchCompany = (e: React.MouseEvent<HTMLButtonElement>) => {
+  if(loading) {
+    return <Loading/>
+  }
+
+  const searchCompany = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setLoading(true)
     const requestBody: RequestBody = {
       name,
       keyword,
     };
     // 서버로 데이터 전송하고 결과값 받아오기
-    const fetchWebMarketingData = async () => {
+    const fetchWebMarketingData = async () : Promise<searchResult[][]> => {
       const googleResponse = await fetch("http://localhost:5000/api/websearch/google", {
         method: "POST",
         headers: {
@@ -53,13 +69,21 @@ const UserCheckForm: React.FC = () => {
         body: JSON.stringify(requestBody),
       });
 
-      Promise.all([naverResponse])
+      return Promise.all([googleResponse, naverResponse])
       .then(res => Promise.all(res.map(res=>res.json())))
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
+      .then(data => {
+        console.log(data)
+        return data;
+      })
+      .catch(err => {
+        console.log(err) 
+        throw err
+      })
     };
-    fetchWebMarketingData();
-    console.log("검색중입니다");
+    // 세션에 저장해놓기
+    sessionStorage.setItem('searchdata', JSON.stringify(await fetchWebMarketingData()))
+    setIsData(true)
+    setLoading(false)
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

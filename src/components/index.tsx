@@ -7,3 +7,5 @@ export {default as SignUpForm} from './SignUpForm';
 export {default as SignUpFormDetail} from './SignUpFormDetail';
 export {default as LoginForm} from './LoginForm';
 export {default as MyPageUserInfo} from './MyPageUserInfo';
+export {default as CrawlingResults} from './CrawlingResults';
+export {default as Loading} from './Loading';
