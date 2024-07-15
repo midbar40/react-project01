@@ -1,7 +1,8 @@
 import React, { useReducer, useState } from "react";
+import {useSearchParams} from 'react-router-dom'
 import "../styles/UserCheckForm.css";
 import { RequestBody } from "../types";
-import {Loading} from '../components/index'
+import { Loading } from '../components/index'
 
 // 상태의 타입 정의
 type State = {
@@ -25,24 +26,63 @@ const reducer = (state: State, action: Action): State => {
 
 interface searchResult {
   title: string;
-  link : string;
+  link: string;
 }
 
 interface UserCheckFormProp {
-  setIsData : React.Dispatch<React.SetStateAction<boolean>>;
+  setIsData: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearchKeyword : React.Dispatch<React.SetStateAction<string>>;
+  searchKeyword : string;
 }
 
-const UserCheckForm: React.FC<UserCheckFormProp> = ({setIsData}) => {
+const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeyword, searchKeyword }) => {
   const [loading, setLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams()
   const [state, dispatch] = useReducer(reducer, {
     name: "",
     keyword: "",
   });
   const { name, keyword } = state;
 
-  if(loading) {
-    return <Loading/>
+  // 로딩컴포넌트
+  if (loading) {
+    return <Loading />
   }
+
+  // 서버로 데이터 전송하고 결과값 받아오기: 구글,네이버 크롤링결과
+  const fetchWebMarketingData = async (requestBody: RequestBody): Promise<searchResult[][]> => {
+    const googleResponse = await fetch("http://localhost:5000/api/websearch/google", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    const naverResponse = await fetch("http://localhost:5000/api/websearch/naver", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    return Promise.all([googleResponse, naverResponse])
+      .then(res => Promise.all(res.map(res => res.json())))
+      .then(data => {
+        console.log(data)
+        const query = requestBody.name as string +'+'+ requestBody.keyword as string
+        setSearchKeyword(query)
+        sessionStorage.setItem(query , JSON.stringify(data))
+        setIsData(true)
+        setLoading(false)
+        return data;
+      })
+      .catch(err => {
+        console.log(err)
+        throw err
+      })
+  };
 
   const searchCompany = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -51,39 +91,18 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({setIsData}) => {
       name,
       keyword,
     };
-    // 서버로 데이터 전송하고 결과값 받아오기
-    const fetchWebMarketingData = async () : Promise<searchResult[][]> => {
-      const googleResponse = await fetch("http://localhost:5000/api/websearch/google", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      const naverResponse = await fetch("http://localhost:5000/api/websearch/naver", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      return Promise.all([googleResponse, naverResponse])
-      .then(res => Promise.all(res.map(res=>res.json())))
-      .then(data => {
-        console.log(data)
-        return data;
-      })
-      .catch(err => {
-        console.log(err) 
-        throw err
-      })
-    };
-    // 세션에 저장해놓기
-    sessionStorage.setItem('searchdata', JSON.stringify(await fetchWebMarketingData()))
-    setIsData(true)
-    setLoading(false)
+    const query = requestBody.name as string +'+'+ requestBody.keyword as string
+    const sessionData = sessionStorage.getItem(query)
+    if (sessionData) {
+      setIsData(true)
+      setLoading(false)
+      searchParams.set('search', requestBody.name as string + '+' + requestBody.keyword as string)
+      setSearchParams(searchParams)
+    } else {
+      await fetchWebMarketingData(requestBody)
+      searchParams.set('search', requestBody.name as string + '+' + requestBody.keyword as string)
+      setSearchParams(searchParams)
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

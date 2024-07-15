@@ -2,16 +2,11 @@ import React,{useEffect, useState} from 'react';
 import { UserCheckForm, CrawlingResults } from '../components';
 
 export const CheckScore : React.FC = () => {
-    useEffect(()=>{
-    const crawlingData = sessionStorage.getItem('searchdata')
-    if(crawlingData){
-        JSON.parse(crawlingData)
-    }
-    },[])
     const [isData, setIsData] = useState(false)
-    const crawlingData = sessionStorage.getItem('searchdata')
+    const [searchKeyword, setSearchKeyword] = useState('')
+    
     return(
-        <> {!isData ? <UserCheckForm setIsData={setIsData}/> : <CrawlingResults/> } </>
+        <> {!isData ? <UserCheckForm setIsData={setIsData} setSearchKeyword={setSearchKeyword} searchKeyword={searchKeyword}/> : <CrawlingResults searchKeyword={searchKeyword} setIsData={setIsData}/> } </>
         )
 }
 
