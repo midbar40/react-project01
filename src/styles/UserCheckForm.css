@@ -40,19 +40,17 @@
     text-align: center;
 }
 .company-name, 
-.company-number, 
 .company-keyword{  
   display: flex;
+  width: 70%;
 }
 .company-name label, 
-.company-number label, 
 .company-keyword label{
-    width: 120px;
+    width: 30%;
 }
 .company-name input,
-.company-number input,
 .company-keyword input{
-    width: 250px;
+    width: 70%;
     height: 30px;
     margin-bottom: 10px;
     border: 1px solid #ccc;

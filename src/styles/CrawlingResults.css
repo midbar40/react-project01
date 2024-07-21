@@ -1,3 +1,103 @@
-.googleResult-summary, .naverResult-summary{
+
+.searchResults {
+    padding-top: 3rem;
+    padding-left: 15rem;
+    padding-bottom: 3rem;
+}
+.searchResults-keyword{
+   color: blue;
+}
+.googleResult-summary,
+.naverResult-summary {
     display: flex;
+}
+
+.googleResult {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 3rem 0;
+}
+
+table {
+    width: 80%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    /* 테이블 셀 간의 경계를 제거 */
+}
+
+th,
+td {
+    border: 1px solid black;
+    /* 테이블 셀의 경계 설정 */
+    white-space: nowrap;
+    /* 텍스트를 줄 바꿈 없이 한 줄에 표시 */
+    overflow: hidden;
+    /* 넘치는 내용을 숨김 */
+    text-overflow: ellipsis;
+    /* 넘치는 내용을 생략 부호로 표시 */
+}
+
+
+.googleResult table tr th:nth-child(1),
+.googleResult table tr td:nth-child(1) {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+}
+
+.googleResult table tr th:nth-child(2),
+.googleResult table tr td:nth-child(2) {
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+}
+
+.googleResult table tr th:nth-child(3),
+.googleResult table tr td:nth-child(3) {
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+}
+.googleResult-text{
+    margin-bottom: 1rem;
+}
+
+
+.naverResult {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.naverResult table th:nth-child(1),
+.naverResult table td:nth-child(1) {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+}
+
+.naverResult table th:nth-child(2),
+.naverResult table td:nth-child(2) {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+}
+
+.naverResult table th:nth-child(3),
+.naverResult table td:nth-child(3) {
+    width: 250px;
+    height: 30px;
+    padding-left: 10px;
+}
+
+.naverResult table th:nth-child(4),
+.naverResult table td:nth-child(4) {
+    width: 300px;
+    height: 30px;
+    padding-left: 10px;
+}
+
+.naverResult-text{
+    margin-bottom: 1rem;
 }

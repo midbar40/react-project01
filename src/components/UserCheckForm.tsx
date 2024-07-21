@@ -1,5 +1,5 @@
-import React, { useReducer, useState } from "react";
-import {useSearchParams} from 'react-router-dom'
+import React, { useEffect, useReducer, useState } from "react";
+import { useSearchParams } from 'react-router-dom'
 import "../styles/UserCheckForm.css";
 import { RequestBody } from "../types";
 import { Loading } from '../components/index'
@@ -31,8 +31,8 @@ interface searchResult {
 
 interface UserCheckFormProp {
   setIsData: React.Dispatch<React.SetStateAction<boolean>>;
-  setSearchKeyword : React.Dispatch<React.SetStateAction<string>>;
-  searchKeyword : string;
+  setSearchKeyword: React.Dispatch<React.SetStateAction<string>>;
+  searchKeyword: string;
 }
 
 const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeyword, searchKeyword }) => {
@@ -48,6 +48,7 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
   if (loading) {
     return <Loading />
   }
+
 
   // 서버로 데이터 전송하고 결과값 받아오기: 구글,네이버 크롤링결과
   const fetchWebMarketingData = async (requestBody: RequestBody): Promise<searchResult[][]> => {
@@ -71,9 +72,9 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
       .then(res => Promise.all(res.map(res => res.json())))
       .then(data => {
         console.log(data)
-        const query = requestBody.name as string +'+'+ requestBody.keyword as string
+        const query = requestBody.name as string + '+' + requestBody.keyword as string
         setSearchKeyword(query)
-        sessionStorage.setItem(query , JSON.stringify(data))
+        sessionStorage.setItem(query, JSON.stringify(data))
         setIsData(true)
         setLoading(false)
         return data;
@@ -91,7 +92,7 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
       name,
       keyword,
     };
-    const query = requestBody.name as string +'+'+ requestBody.keyword as string
+    const query = requestBody.name as string + '+' + requestBody.keyword as string
     const sessionData = sessionStorage.getItem(query)
     if (sessionData) {
       setIsData(true)
@@ -106,7 +107,7 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({ type: e.target.name, value: e.target.value });
+    dispatch({ type: e.target.name.trim(), value: e.target.value.trim() });
   };
 
   return (
