@@ -48,13 +48,19 @@ td {
 
 .googleResult table tr th:nth-child(2),
 .googleResult table tr td:nth-child(2) {
-    width: 300px;
+    width: 50px;
     height: 30px;
-    padding-left: 10px;
+    text-align: center;
 }
 
 .googleResult table tr th:nth-child(3),
 .googleResult table tr td:nth-child(3) {
+    width: 250px;
+    height: 30px;
+    padding-left: 10px;
+}
+.googleResult table tr th:nth-child(4),
+.googleResult table tr td:nth-child(4) {
     width: 300px;
     height: 30px;
     padding-left: 10px;

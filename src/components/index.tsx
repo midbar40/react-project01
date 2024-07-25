@@ -9,3 +9,4 @@ export {default as LoginForm} from './LoginForm';
 export {default as MyPageUserInfo} from './MyPageUserInfo';
 export {default as CrawlingResults} from './CrawlingResults';
 export {default as Loading} from './Loading';
+export {default as HightLightText} from './HightLightText';
