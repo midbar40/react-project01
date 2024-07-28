@@ -1,6 +1,6 @@
 import react from 'react';
 import { MyPageUserInfo } from '../components';
-import { useAuthStore } from '../stores/AuthStore';
+import { useAuthStore } from '../../common/stores/AuthStore';
 
 
 const Mypage: React.FC = () => {

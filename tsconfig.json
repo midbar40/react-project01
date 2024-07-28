@@ -1,28 +1,39 @@
 {
-    "compilerOptions": {
-      "target": "es5",
-      "module": "esnext",
-      "lib": ["dom", "dom.iterable", "esnext"],
-      "allowJs": true,
-      "jsx": "react-jsx",
-      "sourceMap": true,
-      "outDir": "./dist",
-      "isolatedModules": true,
-      "strict": true,
-      "esModuleInterop": true,
-      "resolveJsonModule": true,
-      "moduleResolution": "node",
-      "baseUrl": "./",
-      "paths": {
-        "@components/*": ["components/*"],
-        "@pages/*": ["pages/*"]
-      },
-      "skipLibCheck": true,
-      "allowSyntheticDefaultImports": true,
-      "forceConsistentCasingInFileNames": true,
-      "types" : [
-        "webpack-env",
-      ]
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "isolatedModules": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "@common-components/*": ["src/common/components/*"],  
+      "@common-pages/*": ["src/common/pages/*"],  
+      "@user-components/*": ["src/user/components/*"],  
+      "@user-pages/*": ["src/user/pages/*"],  
+      "@admin-components/*": ["src/admin/components/*"],  
+      "@admin-pages/*": ["src/admin/pages/*"]  
     },
-    "include": ["src"]
-  }
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": [
+      "webpack-env",
+      "webpack-dev-server"
+    ]
+  },
+  "include": [
+    "src"
+  ]
+}

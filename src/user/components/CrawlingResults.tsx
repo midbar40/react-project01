@@ -1,7 +1,7 @@
 import React, { ReactEventHandler, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import '../styles/CrawlingResults.css'
-import { HightLightText } from "./";
+import { HightLightText } from ".";
 
 interface CrawlingResultsProps {
   searchKeyword: string;

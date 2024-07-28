@@ -1,7 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/SignUpFormDetail.css';
-import { SignUpFormDetailState } from '../types';
+import { SignUpFormDetailState } from '../../types';
 
 interface SignUpFormDetailProps {
     email: string;

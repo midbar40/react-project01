@@ -1,15 +1,15 @@
 import React from 'react'; // react를 import하지 않으면 typescript에서 html을 인식하지 못함
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../stores/AuthStore';
+import { useAuthStore } from '../../common/stores/AuthStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import '../styles/Header.css';
 
 
 // 서버에 로그아웃 요청
 const fetchLogout = async (): Promise<void> => {
-    const response = await fetch("http://localhost:5000/api/users/logout",{
-        method : "GET",
-        headers: {"Content-Type" : "application/json"},
+    const response = await fetch("http://localhost:5000/api/users/logout", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
         credentials: "include"
     })
     const result = await response.json();
@@ -39,14 +39,14 @@ const Header: React.FC = () => {
                 <nav>
                     <div className='mainHeader_logo'>
                         <NavLink to="/" className="nav_link">
-                            <img src={require("../assets/imgs/brandLogo.png").default} alt="mainHeader_logoImg" />
+                            <img src={require("../../assets/imgs/brandLogo.png").default} alt="mainHeader_logoImg" />
                         </NavLink>
                     </div>
                     <div className="mainHeader_link">
                         <NavLink to="/service" className="nav_link">서비스소개</NavLink>
                         {cookies && <NavLink to="/myPage" className="nav_link">마이페이지</NavLink>}
                         {
-                            cookies ? <a onClick={()=> mutate()} className="nav_link logoutBtn">로그아웃</a>
+                            cookies ? <a onClick={() => mutate()} className="nav_link logoutBtn">로그아웃</a>
                                 :
                                 <NavLink to="/login" className="nav_link loginBtn" >로그인</NavLink>
                         }

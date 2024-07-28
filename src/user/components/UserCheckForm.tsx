@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { useSearchParams } from 'react-router-dom'
 import "../styles/UserCheckForm.css";
-import { RequestBody } from "../types";
-import { Loading } from '../components/index'
+import { RequestBody } from "../../types";
+import { Loading } from './index'
 
 // 상태의 타입 정의
 type State = {

@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config webpack.dev.js --open --hot",
-    "build": "webpack --config webpack.prod.js",
-    "start": "webpack-dev-server --config webpack.dev.js --open --hot"
+    "dev:admin": "webpack serve --config webpack/webpack.dev.js --env target=admin --open --hot",
+    "dev:user": "webpack serve --config webpack/webpack.dev.js --env target=user --open --hot",
+    "build:admin": "webpack --config webpack/webpack.prod.js --env target=admin",
+    "build:user": "webpack --config webpack/webpack.prod.js --env target=user",
+    "start": "webpack serve --config webpack/webpack.dev.js --env target=user --open --hot",  
+    "build": "webpack --config webpack/webpack.prod.js"  
   },
   "author": "",
   "license": "ISC",

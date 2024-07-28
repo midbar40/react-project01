@@ -2,11 +2,11 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 import '../styles/MainTopSection.css';
 import brandLogoData from '../data/mainSectionImgs.json'; // tsconfig.json에서 "resolveJsonModule": true로 설정해야함
-import { mainBrandLogoData } from '../types'
+import { mainBrandLogoData } from '../../types'
 import { ChartRader, ChartBar } from './index';
 
 // 특정 디렉토리 내의 모든 이미지를 동적으로 import
-const requireContext = require.context('../assets/imgs', false, /\.(png|jpe?g|gif|svg)$/); // npm i @types/webpack-env, tsconfig types에 webpack-dev 추가  
+const requireContext = require.context('../../assets/imgs', false, /\.(png|jpe?g|gif|svg)$/); // npm i @types/webpack-env, tsconfig types에 webpack-dev 추가  
 
 const images : { [key : string ] : string } = {};
 requireContext.keys().forEach((key: string) => {

@@ -3,7 +3,9 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: {
+    user: "./src/user/userIndex.tsx"
+  },
   resolve: {
     // TS2732: Cannot find module '../data/mainSectionImgs.json'. Consider using '--resolveJsonModule' to import module with '.json' extension.
     extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],  //  위 ts2732 오류로 .json 추가함 => 해결됨
@@ -26,13 +28,16 @@ module.exports = {
     ],
   },
   output: {
-    path: path.join(__dirname, "/dist"),
+    path: path.resolve(__dirname, "../dist/user"),
     filename: "bundle.js",
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
+      filename : 'user/index.html', // 이코드는 딱히 없어도 되는거 같은데?
+      template: "./public/userIndex.html",
+      chunks:['user'] 
     }),
     new CleanWebpackPlugin(),
+
   ],
 };
