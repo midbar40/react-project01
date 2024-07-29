@@ -32,7 +32,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename : 'admin/index.html',
+      filename : 'index.html',
       template: "./public/adminIndex.html",
       chunks:['admin']
     }),

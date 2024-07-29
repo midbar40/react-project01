@@ -29,7 +29,6 @@ const reducer = (state: State, action: Action): State => {
 
 
 const SignUpFormDetail: React.FC<SignUpFormDetailProps> = ({ email }) => {
-    console.log('email prop :', email)
     const [emptyCheck, setEmptyCheck] = useState<boolean>(false);
     const [errorText, setErrorText] = useState<string>('');
     let navigate = useNavigate();

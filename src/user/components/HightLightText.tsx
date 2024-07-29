@@ -2,17 +2,16 @@ import React from "react";
 
 interface HighLightTextProps {
     text: string;
-    searchKeyword: string;
+    searchKeywordBrandName: string;
     paramsWord: string;
 }
 
-const HighLightText: React.FC<HighLightTextProps> = ({ text, searchKeyword, paramsWord }) => {
+const HighLightText: React.FC<HighLightTextProps> = ({ text, searchKeywordBrandName, paramsWord }) => {
     // searchKeyword와 paramsWord를 '+'로 분리하여 단어 배열로 만듦
     const keywords = [
-        ...(searchKeyword ? searchKeyword.split('+') : []),
-        ...(paramsWord ? paramsWord.split('+') : [])
+        searchKeywordBrandName && searchKeywordBrandName,
+        ...(paramsWord ? paramsWord.split('+').filter(ele => ele === searchKeywordBrandName) : [])
     ].filter(Boolean); // 빈 문자열 제거
-
     // 키워드 배열이 비어 있으면 원래 텍스트 반환
     if (keywords.length === 0) return <>{text}</>;
 
@@ -24,7 +23,7 @@ const HighLightText: React.FC<HighLightTextProps> = ({ text, searchKeyword, para
         <>
             {parts.map((part, index) =>
                 keywords.includes(part.toLowerCase()) ? (
-                    <span key={index} style={{ backgroundColor: 'yellow' }}>{part}</span>
+                    <span key={index} style={{ backgroundColor: 'yellow', fontWeight: '600'}}>{part}</span>
                 ) : (
                     <span key={index}>{part}</span>
                 )

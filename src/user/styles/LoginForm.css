@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
     height: calc(100vh - 6rem);
     background-color: #f9f9f9;
 }
@@ -27,21 +28,23 @@
     font-size: 1.8rem;
 }
 .login-form-group{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
     margin-bottom: 1rem;
 }
 .login-form-group input{
     width: 300px;
     height: 50px;
-    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    padding-left: .3rem;
+    padding-left: 1rem;
     font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
 }
 .login-btn{
+    width: 130px;
     height: 50px;
     background-color: #f9a109;
     color: white;
@@ -51,13 +54,10 @@
     text-decoration: none;
     display: inline-block;
     font-size: 1.4rem;
-    margin: 4px 2px;
+    margin: 0 2px;
     cursor: pointer;
     border-radius: 5px;
-    transition: 0.3s;
-    width: 30%;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 .other-btns span{
     margin-right: 10px;

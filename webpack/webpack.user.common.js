@@ -33,7 +33,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename : 'user/index.html', // 이코드는 딱히 없어도 되는거 같은데?
+      filename : 'index.html', 
       template: "./public/userIndex.html",
       chunks:['user'] 
     }),

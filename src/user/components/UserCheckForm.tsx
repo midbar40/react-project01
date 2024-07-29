@@ -28,11 +28,14 @@ interface searchResult {
   title: string;
   link: string;
 }
-
+type SearchKeywordType = {
+  brandName: string;
+  keyword: string;
+};
 interface UserCheckFormProp {
   setIsData: React.Dispatch<React.SetStateAction<boolean>>;
-  setSearchKeyword: React.Dispatch<React.SetStateAction<string>>;
-  searchKeyword: string;
+  setSearchKeyword: React.Dispatch<React.SetStateAction<SearchKeywordType>>;
+  searchKeyword: SearchKeywordType;
 }
 
 const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeyword, searchKeyword }) => {
@@ -72,11 +75,15 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
       .then(res => Promise.all(res.map(res => res.json())))
       .then(data => {
         console.log(data)
+        setSearchKeyword({
+          brandName : requestBody.name as string, 
+          keyword : requestBody.keyword as string
+        })
         const query = requestBody.name as string + '+' + requestBody.keyword as string
-        setSearchKeyword(query)
         sessionStorage.setItem(query, JSON.stringify(data))
         setIsData(true)
         setLoading(false)
+        console.log('data ', data)
         return data;
       })
       .catch(err => {
@@ -101,6 +108,7 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
       setSearchParams(searchParams)
     } else {
       await fetchWebMarketingData(requestBody)
+      console.log('requestBody', requestBody)
       searchParams.set('search', requestBody.name as string + '+' + requestBody.keyword as string)
       setSearchParams(searchParams)
     }
