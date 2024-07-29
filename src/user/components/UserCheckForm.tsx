@@ -45,6 +45,10 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
     name: "",
     keyword: "",
   });
+  const [warning, setWarning] = useState({
+    state: false,
+    message: ''
+  })
   const { name, keyword } = state;
 
   // 로딩컴포넌트
@@ -71,13 +75,20 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
       body: JSON.stringify(requestBody),
     });
 
-    return Promise.all([googleResponse, naverResponse])
+    const youtubeResponse = await fetch("http://localhost:5000/api/websearch/youtube", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    return Promise.all([googleResponse, naverResponse, youtubeResponse])
       .then(res => Promise.all(res.map(res => res.json())))
       .then(data => {
-        console.log(data)
         setSearchKeyword({
-          brandName : requestBody.name as string, 
-          keyword : requestBody.keyword as string
+          brandName: requestBody.name as string,
+          keyword: requestBody.keyword as string
         })
         const query = requestBody.name as string + '+' + requestBody.keyword as string
         sessionStorage.setItem(query, JSON.stringify(data))
@@ -94,6 +105,7 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
 
   const searchCompany = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (!name || !keyword) return setWarning({ state: true, message: '모든 빈칸을 입력해주세요' });
     setLoading(true)
     const requestBody: RequestBody = {
       name,
@@ -108,7 +120,7 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
       setSearchParams(searchParams)
     } else {
       await fetchWebMarketingData(requestBody)
-      console.log('requestBody', requestBody)
+      
       searchParams.set('search', requestBody.name as string + '+' + requestBody.keyword as string)
       setSearchParams(searchParams)
     }
@@ -144,6 +156,8 @@ const UserCheckForm: React.FC<UserCheckFormProp> = ({ setIsData, setSearchKeywor
               onChange={handleInputChange}
             />
           </div>
+          {warning.state && <span style={{ color: 'red', fontWeight: 600 }}>{warning.message}</span>}
+
           <button type="submit" className="checkBtn" onClick={searchCompany}>
             점수확인
           </button>

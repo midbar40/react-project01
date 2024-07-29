@@ -35,8 +35,10 @@ const CrawlingResults: React.FC<CrawlingResultsProps> = ({ searchKeyword, setIsD
     const parseData = JSON.parse(crawlingData as string)
     const googleResults = parseData[0]
     const naverResults = parseData[1]
+    const youtubeResults = parseData[2]
 
     return (
+
       <div className="searchResults">
         <div className="searchResults-summary">
           <h3 className="text-2xl font-semibold"> <span className="searchResults-keyword">"{searchKeyword.keyword || paramsWord}"</span> 의 검색결과 입니다 (1page 검색결과)</h3>
@@ -93,6 +95,38 @@ const CrawlingResults: React.FC<CrawlingResultsProps> = ({ searchKeyword, setIsD
                     <td>
                       <HightLightText text={ele.title} searchKeywordBrandName={searchKeyword.brandName} paramsWord={paramsWord} />
                     </td>
+                    <td>{ele.link}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            : <p>검색결과가 존재하지 않습니다</p>}
+        </div>
+
+        <div className="youtubeResult">
+          <div className="youtubeResult-summary font-semibold	text-lg">
+            <div className="youtubeResult-text">유튜브 : 키워드가 포함된 영상 <span>{youtubeResults.length} 개, 점수{showGoogleScore(+youtubeResults.length)}</span></div>
+          </div>
+          {youtubeResults.length > 0 ?
+            <table>
+              <thead>
+                <tr>
+                  <th>순번</th>
+                  <th>유형</th>
+                  <th>제목</th>
+                  <th>조회수</th>
+                  <th>링크</th>
+                </tr>
+              </thead>
+              <tbody>
+                {youtubeResults.map((ele: { key: string; type: string; link: string; title: string; hits: string; }, index: number) => (
+                  <tr key={ele.key}>
+                    <td>{index + 1}</td>
+                    <td>{ele.type}</td>
+                    <td>
+                      <HightLightText text={ele.title} searchKeywordBrandName={searchKeyword.brandName} paramsWord={paramsWord} />
+                    </td>
+                    <td>{ele.hits}</td>
                     <td>{ele.link}</td>
                   </tr>
                 ))}
